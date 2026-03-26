@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MGRV 2026 조직도 — To-Be</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0f0f0f;
+  --dark: #1a1a1a;
+  --g900: #222;
+  --g800: #333;
+  --g700: #444;
+  --g600: #555;
+  --g500: #777;
+  --g400: #999;
+  --g300: #bbb;
+  --g200: #ddd;
+  --g100: #eee;
+  --g50: #f6f6f6;
+  --white: #fff;
+  --font: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --line: var(--g300);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--g800);
+  font-size: 13px;
+  line-height: 1.6;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ── Header ── */
+.header {
+  background: var(--black);
+  color: var(--white);
+  padding: 40px 48px;
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--g400);
+  margin-bottom: 12px;
+}
+.header-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+}
+.header-sub {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--g400);
+  margin-top: 8px;
+}
+.header-badge {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 4px 12px;
+  border: 1px solid var(--g600);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--g400);
+}
+
+/* ── Legend ── */
+.legend {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 48px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: 1px solid var(--g200);
+  font-size: 11px;
+  color: var(--g600);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-new {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border: 2px dashed var(--g800);
+  border-radius: 2px;
+}
+.legend-moved {
+  display: inline-block;
+  font-size: 10px;
+  color: var(--g500);
+}
+.btn-sm {
+  border: 1px solid var(--g300);
+  background: var(--white);
+  padding: 4px 12px;
+  border-radius: 3px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: background 0.15s;
+}
+.btn-sm:hover { background: var(--g50); }
+
+/* ── Main ── */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+}
+
+/* ═══════════════════════════════════════
+   TREE OVERVIEW — Horizontal hierarchy
+   ═══════════════════════════════════════ */
+.tree-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 32px 0 24px;
+}
+.tree-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 900px;
+}
+
+/* Vertical connector line (explicit) */
+.tree-vline {
+  width: 1px;
+  height: 20px;
+  background: var(--line);
+}
+
+/* Row of child nodes */
+.tree-children {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding-top: 20px;
+}
+
+/* Each child in a row */
+.tree-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 20px 6px 0;
+}
+
+/* Vertical drop from horizontal rail to node */
+.tree-child::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 20px;
+  background: var(--line);
+}
+
+/* Horizontal rail segment */
+.tree-child::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+.tree-child:first-child::after { left: 50%; }
+.tree-child:last-child::after { right: 50%; }
+.tree-child:only-child::after { display: none; }
+
+/* ── Node styles ── */
+.node-ceo {
+  background: var(--black);
+  color: var(--white);
+  padding: 14px 32px;
+  border-radius: 4px;
+  text-align: center;
+}
+.node-ceo .n-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--g400);
+}
+.node-ceo .n-name {
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+/* Tier 2: CEO Staff/직속 — smaller nodes */
+.node-staff {
+  background: var(--white);
+  border: 1px solid var(--g200);
+  border-radius: 4px;
+  padding: 6px 12px;
+  min-width: 76px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.node-staff:hover {
+  border-color: var(--g400);
+  background: var(--g50);
+}
+.node-staff.active {
+  border-color: var(--g800);
+  background: var(--g50);
+}
+.node-staff.is-new {
+  border: 2px dashed var(--g800);
+}
+.node-staff .n-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--g800);
+}
+.node-staff .n-sub {
+  font-size: 9px;
+  color: var(--g500);
+  margin-top: 1px;
+}
+.node-staff .n-count {
+  font-size: 8px;
+  color: var(--g400);
+  margin-top: 1px;
+}
+
+/* Tier 3: Main groups — prominent nodes */
+.node-org {
+  background: var(--g900);
+  color: var(--white);
+  border: 1px solid var(--g800);
+  border-radius: 4px;
+  padding: 10px 16px;
+  min-width: 100px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.node-org:hover {
+  background: var(--g800);
+}
+.node-org.active {
+  background: var(--black);
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.node-org.is-new {
+  border: 2px dashed var(--g800);
+}
+.node-org .n-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--white);
+}
+.node-org .n-sub {
+  font-size: 9px;
+  color: var(--g400);
+  margin-top: 2px;
+}
+.node-org .n-count {
+  font-size: 9px;
+  color: var(--g500);
+  margin-top: 2px;
+}
+.new-tag {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--white);
+  background: var(--g900);
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+/* ═══════════════════════════════════════
+   DETAIL PANELS — Expandable cards
+   ═══════════════════════════════════════ */
+.detail-section {
+  margin-top: 8px;
+}
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--g400);
+}
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--g200);
+}
+
+.detail-card {
+  border: 1px solid var(--g200);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.detail-card.is-new {
+  border: 2px dashed var(--g800);
+}
+.detail-head {
+  padding: 12px 20px;
+  background: var(--g50);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+.detail-head:hover { background: var(--g100); }
+.dh-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--g500);
+}
+.dh-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--g900);
+}
+.dh-leader {
+  font-size: 12px;
+  color: var(--g600);
+  font-weight: 500;
+}
+.dh-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--g400);
+  background: var(--white);
+  border: 1px solid var(--g200);
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin-left: auto;
+}
+.dh-toggle {
+  font-size: 14px;
+  color: var(--g400);
+  transition: transform 0.2s;
+}
+.detail-card.open .dh-toggle {
+  transform: rotate(180deg);
+}
+.detail-body {
+  display: none;
+  padding: 16px 20px;
+}
+.detail-card.open .detail-body {
+  display: block;
+}
+.detail-desc {
+  font-size: 12px;
+  color: var(--g600);
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+/* ═══════════════════════════════════════
+   DETAIL TREE — File-tree indentation
+   ═══════════════════════════════════════ */
+.dtree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dtree .dtree {
+  padding-left: 24px;
+}
+.dtree > li {
+  position: relative;
+  padding: 3px 0 3px 22px;
+}
+/* Vertical guide line */
+.dtree > li::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--g200);
+}
+/* Horizontal branch */
+.dtree > li::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 14px;
+  width: 14px;
+  height: 1px;
+  background: var(--g200);
+}
+/* Last child: cut vertical line at branch point */
+.dtree > li:last-child::before {
+  height: 14px;
+}
+
+/* Division label */
+.dt-div {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--g800);
+  padding: 4px 0;
+}
+.dt-div .dt-sub {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--g500);
+  margin-left: 6px;
+}
+
+/* Team label */
+.dt-team {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--g600);
+  padding: 3px 0;
+  letter-spacing: 0.3px;
+}
+
+/* Person */
+.dt-person {
+  font-size: 12px;
+  color: var(--g700);
+  display: inline-block;
+  padding: 1px 0;
+}
+.dt-person .dt-role {
+  font-size: 10px;
+  color: var(--g400);
+  margin-right: 3px;
+}
+.dt-person .dt-name {
+  font-weight: 600;
+  color: var(--g800);
+}
+.dt-person .dt-note {
+  font-size: 10px;
+  color: var(--g400);
+  margin-left: 4px;
+}
+.dt-person.moved {
+  color: var(--g600);
+}
+.dt-person.moved::before {
+  content: '⇄';
+  font-size: 9px;
+  color: var(--g500);
+  margin-right: 4px;
+}
+.dt-person.promoted .dt-name {
+  font-weight: 700;
+}
+.dt-person.promoted::before {
+  content: '↑';
+  font-size: 9px;
+  color: var(--g800);
+  margin-right: 3px;
+}
+.dt-person.vacant {
+  color: var(--g400);
+  font-style: italic;
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 40px 48px;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-left {
+  font-size: 11px;
+  color: var(--g500);
+}
+.footer-right {
+  font-size: 10px;
+  color: var(--g500);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ── Print ── */
+@media print {
+  @page { size: A3 landscape; margin: 10mm; }
+  body { font-size: 9px; }
+  .header { padding: 16px 20px; }
+  .header-title { font-size: 18px; }
+  .main { padding: 8px 20px 20px; }
+  .legend { padding: 8px 20px; }
+  .tree-wrap { overflow: visible; padding: 16px 0; }
+  .tree-container { min-width: auto; }
+  .detail-card.open .detail-body,
+  .detail-body { display: block; }
+  .footer { padding: 16px 20px; }
+  .btn-sm { display: none; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .header, .main, .footer, .legend { padding-left: 20px; padding-right: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Organization Chart</div>
+    <div class="header-title">MGRV 2026 조직도 (To-Be)</div>
+    <div class="header-sub">시행일 2026. 03. 27 · 총 103명</div>
+    <div class="header-badge">Strictly Confidential</div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="legend-new"></span> 신설 조직</div>
+  <div class="legend-item"><span class="legend-moved">⇄</span> 겸직</div>
+  <div style="margin-left:auto;display:flex;gap:4px;">
+    <button class="btn-sm" onclick="expandAll()">모두 펼치기</button>
+    <button class="btn-sm" onclick="collapseAll()">모두 접기</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════════════════════════════════
+       TREE OVERVIEW
+       ═══════════════════════════════════════ -->
+  <div class="tree-wrap">
+    <div class="tree-container">
+
+      <!-- Tier 1: CEO -->
+      <div class="node-ceo">
+        <div class="n-label">Chief Executive Officer</div>
+        <div class="n-name">조강태</div>
+      </div>
+
+      <div class="tree-vline"></div>
+
+      <!-- Tier 2: CEO Staff / 직속 -->
+      <div class="tree-children">
+        <div class="tree-child">
+          <div class="node-staff is-new" data-panel="growth" onclick="togglePanel('growth',this)">
+            <div class="n-name">Growth<span class="new-tag">NEW</span></div>
+            <div class="n-sub">CSO 이상호 겸임</div>
+            <div class="n-count">7명</div>
+          </div>
+        </div>
+        <div class="tree-child">
+          <div class="node-staff" data-panel="corpdev" onclick="togglePanel('corpdev',this)">
+            <div class="n-name">Corp Dev</div>
+            <div class="n-sub">CSO 이상호</div>
+            <div class="n-count">4명</div>
+          </div>
+        </div>
+        <div class="tree-child">
+          <div class="node-staff" data-panel="legal" onclick="togglePanel('legal',this)">
+            <div class="n-name">Legal &amp; Compliance</div>
+            <div class="n-sub">Dir. 하규봉</div>
+          </div>
+        </div>
+        <div class="tree-child">
+          <div class="node-staff" data-panel="pr" onclick="togglePanel('pr',this)">
+            <div class="n-name">PR</div>
+            <div class="n-sub">Mgr. 공지영</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tree-vline"></div>
+
+      <!-- Tier 3: Main Groups -->
+      <div class="tree-children">
+        <div class="tree-child">
+          <div class="node-org" data-panel="red" onclick="togglePanel('red',this)">
+            <div class="n-name">RED Group</div>
+            <div class="n-sub">CRO 서세민</div>
+            <div class="n-count">11명</div>
+          </div>
+        </div>
+        <div class="tree-child">
+          <div class="node-org" data-panel="bs" onclick="togglePanel('bs',this)">
+            <div class="n-name">BS Group</div>
+            <div class="n-sub">CDO 소희선</div>
+            <div class="n-count">12명</div>
+          </div>
+        </div>
+        <div class="tree-child">
+          <div class="node-org" data-panel="be" onclick="togglePanel('be',this)">
+            <div class="n-name">BE Group</div>
+            <div class="n-sub">CEO 대행</div>
+            <div class="n-count">44명</div>
+          </div>
+        </div>
+        <div class="tree-child">
+          <div class="node-org" data-panel="lp" onclick="togglePanel('lp',this)">
+            <div class="n-name">LP Group</div>
+            <div class="n-sub">이재형</div>
+            <div class="n-count">15명</div>
+          </div>
+        </div>
+        <div class="tree-child">
+          <div class="node-org" data-panel="fn" onclick="togglePanel('fn',this)">
+            <div class="n-name">FN Group</div>
+            <div class="n-sub">CFO 진홍재</div>
+            <div class="n-count">6명</div>
+          </div>
+        </div>
+        <div class="tree-child">
+          <div class="node-org" data-panel="people" onclick="togglePanel('people',this)">
+            <div class="n-name">People Group</div>
+            <div class="n-sub">CHRO 이재형</div>
+            <div class="n-count">4명</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /tree-container -->
+  </div><!-- /tree-wrap -->
+
+  <!-- ═══════════════════════════════════════
+       DETAIL PANELS
+       ═══════════════════════════════════════ -->
+  <div class="detail-section">
+
+    <!-- ── CEO 직속 ── -->
+    <div class="section-divider">CEO 직속</div>
+
+    <!-- Legal & Compliance -->
+    <div class="detail-card" id="panel-legal">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">Staff</span>
+        <span class="dh-name">Legal & Compliance</span>
+        <span class="dh-leader">Director 하규봉</span>
+        <span class="dh-count">1명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <ul class="dtree">
+          <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">하규봉</span></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PR -->
+    <div class="detail-card" id="panel-pr">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">Staff</span>
+        <span class="dh-name">PR</span>
+        <span class="dh-leader">Manager 공지영</span>
+        <span class="dh-count">1명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <ul class="dtree">
+          <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">공지영</span></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Corp Dev -->
+    <div class="detail-card" id="panel-corpdev">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">CEO 직속</span>
+        <span class="dh-name">Corp Dev</span>
+        <span class="dh-leader">CSO 이상호</span>
+        <span class="dh-count">4명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <p class="detail-desc">조직 유지. 구성원은 Growth·PPM 등으로 겸직 배치하여 핵심 과업 지원</p>
+        <ul class="dtree">
+          <li><span class="dt-person"><span class="dt-role">CSO</span><span class="dt-name">이상호</span><span class="dt-note">Growth 부문 리더 겸임</span></span></li>
+          <li><span class="dt-person moved"><span class="dt-role">BO</span><span class="dt-name">최지훈</span><span class="dt-note">Growth 운영서비스DA 겸직</span></span></li>
+          <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">김경대</span><span class="dt-note">PPM 겸직</span></span></li>
+          <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">김서연</span><span class="dt-note">PPM 겸직</span></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Growth -->
+    <div class="detail-card is-new open" id="panel-growth">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">CEO 직속 · NEW</span>
+        <span class="dh-name">Growth</span>
+        <span class="dh-leader">CSO 이상호 겸임 · CEO 공동리드</span>
+        <span class="dh-count">7명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <p class="detail-desc">프로젝트성 겸직 조직. 각 구성원은 As-Is 소속을 유지하며 딜 발굴·성사를 전담</p>
+        <ul class="dtree">
+          <li>
+            <div class="dt-div">운영서비스 DA팀<span class="dt-sub">Leader 최지훈</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person moved"><span class="dt-role">Leader</span><span class="dt-name">최지훈</span><span class="dt-note">겸직 · Corp Dev</span></span></li>
+              <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">함형범</span><span class="dt-note">겸직 · PPM BD</span></span></li>
+              <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">한슬기</span><span class="dt-note">겸직 · PPM BD</span></span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-div">JV DA팀<span class="dt-sub">Leader 신정섭</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person moved"><span class="dt-role">Leader</span><span class="dt-name">신정섭</span><span class="dt-note">겸직 · RED Finance2</span></span></li>
+              <li><span class="dt-person moved"><span class="dt-role">PM</span><span class="dt-name">남민규</span><span class="dt-note">겸직 · RED PM</span></span></li>
+              <li><span class="dt-person vacant">충원 예정</span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── 기능 그룹 ── -->
+    <div class="section-divider">기능 그룹</div>
+
+    <!-- RED -->
+    <div class="detail-card" id="panel-red">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">Group</span>
+        <span class="dh-name">RED</span>
+        <span class="dh-leader">CRO 서세민</span>
+        <span class="dh-count">11명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <ul class="dtree">
+          <li>
+            <div class="dt-div">IM (Investment Management)<span class="dt-sub">Director 이호탄</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">이호탄</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">최성윤</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">이승훈</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">이동주</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">김희주</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">한세린</span></span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-div">Project Management<span class="dt-sub">Director 홍지영</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">홍지영</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">김정원</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">정지윤</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">김상윤</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">은주영</span></span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BS -->
+    <div class="detail-card" id="panel-bs">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">Group</span>
+        <span class="dh-name">BS (Brand & Space)</span>
+        <span class="dh-leader">CDO 소희선</span>
+        <span class="dh-count">12명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <p class="detail-desc">변경 없음</p>
+        <ul class="dtree">
+          <li>
+            <div class="dt-div">Brand & Space Planning<span class="dt-sub">Leader 이다정</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">이다정</span></span></li>
+              <li><span class="dt-person"><span class="dt-name">정보근</span></span></li>
+              <li><span class="dt-person"><span class="dt-name">최남연</span></span></li>
+              <li><span class="dt-person"><span class="dt-name">오세영</span></span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-div">Brand Design<span class="dt-sub">Leader 이현아</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">이현아</span></span></li>
+              <li><span class="dt-person"><span class="dt-name">김규연</span></span></li>
+              <li><span class="dt-person"><span class="dt-name">최예지</span></span></li>
+              <li><span class="dt-person"><span class="dt-name">전신영</span></span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-div">Space Design</div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-name">이의정</span></span></li>
+              <li><span class="dt-person"><span class="dt-name">송민주</span></span></li>
+              <li><span class="dt-person vacant">박세영 (예정)</span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BE -->
+    <div class="detail-card" id="panel-be">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">Group</span>
+        <span class="dh-name">BE (Business Experience)</span>
+        <span class="dh-leader">CEO 그룹리더 대행</span>
+        <span class="dh-count">44명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <ul class="dtree">
+          <!-- PPM -->
+          <li>
+            <div class="dt-div">PPM<span class="dt-sub">Director 홍승표</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">홍승표</span></span></li>
+              <li>
+                <div class="dt-team">Product Planning</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">김승연</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">Scale</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">BO</span><span class="dt-name">홍기문</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">김주현</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">Operational Improvement</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">BM</span><span class="dt-name">김은혜</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">겸직 배치</div>
+                <ul class="dtree">
+                  <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">김경대</span><span class="dt-note">겸직 · Corp Dev</span></span></li>
+                  <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">김서연</span><span class="dt-note">겸직 · Corp Dev</span></span></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- Marketing & Sales -->
+          <li>
+            <div class="dt-div">Marketing & Sales<span class="dt-sub">Director 곽승재</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">곽승재</span></span></li>
+              <li>
+                <div class="dt-team">Growth & Contents Team (곽승재 디렉터 직접 리드)</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">정원석</span></span></li>
+                  <li><span class="dt-person"><span class="dt-name">구은진</span></span></li>
+                  <li><span class="dt-person"><span class="dt-name">지연주</span></span></li>
+                  <li><span class="dt-person"><span class="dt-name">장현희</span></span></li>
+                  <li><span class="dt-person"><span class="dt-name">김효승</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">Sales Ops</span><span class="dt-name">최승은</span><span class="dt-note">(계약직)</span></span></li>
+                  <li><span class="dt-person moved"><span class="dt-role">Leader</span><span class="dt-name">이성국</span><span class="dt-note">←캠페인마케팅</span></span></li>
+                  <li><span class="dt-person moved"><span class="dt-role">Marketer</span><span class="dt-name">박준하</span><span class="dt-note">←캠페인마케팅</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">Community & Campaign Team (김인애 팀리더)</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">김인애</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">이정민</span></span></li>
+                  <li><span class="dt-person vacant">시니어 충원 예정</span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">미배치 / 휴직</div>
+                <ul class="dtree">
+                  <li><span class="dt-person vacant">황인경 (미배치 확인 필요)</span></li>
+                  <li><span class="dt-person vacant">주연수 (휴직)</span></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- OPS -->
+          <li>
+            <div class="dt-div">OPS (Operations)<span class="dt-sub">정상훈 디렉터 대행</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person promoted"><span class="dt-role">디렉터 대행</span><span class="dt-name">정상훈</span><span class="dt-note">승격</span></span></li>
+              <li>
+                <div class="dt-team">Field Owner</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">FO</span><span class="dt-name">정해선</span><span class="dt-note">W&S 제주/고성</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">FO</span><span class="dt-name">박일우</span><span class="dt-note">어반디힐/라퓨타</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">FO</span><span class="dt-name">추재현</span><span class="dt-note">신설/동대문</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">FO</span><span class="dt-name">김주향</span><span class="dt-note">신촌/숭인</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">Community Management — 동대문</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">이형민</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">조지현</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">김영찬</span></span></li>
+                  <li><span class="dt-person vacant"><span class="dt-role">CA</span> 나현민 (예정)</span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">Community Management — 신설</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">김민재</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">백수정</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">우지현</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">Community Management — 숭인/신촌/종로</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">최성욱</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">Community Management — Work & Stay</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">추재현</span><span class="dt-note">(고성)</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">안예지</span><span class="dt-note">(고성)</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">김강미</span><span class="dt-note">(제주)</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">고유라</span><span class="dt-note">(제주)</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">문현지</span><span class="dt-note">(제주)</span></span></li>
+                  <li><span class="dt-person vacant"><span class="dt-role">CA</span> 김정년 (예정/제주)</span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">Customer Relations</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">CRS</span><span class="dt-name">노대환</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">CRS</span><span class="dt-name">이주형</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">FM (Facility Management)</div>
+                <ul class="dtree">
+                  <li><span class="dt-person moved"><span class="dt-role">Manager</span><span class="dt-name">김용현</span><span class="dt-note">←PRP</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">MGRV Vibe | F&B Mgt</div>
+                <ul class="dtree">
+                  <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">최연문</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">안지선</span></span></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- Procurement -->
+          <li>
+            <div class="dt-div">Procurement & Vendor Management<span class="dt-sub">BE 그룹리더 직속</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">정광채</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">최재원</span></span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LP -->
+    <div class="detail-card" id="panel-lp">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">Group</span>
+        <span class="dh-name">LP (Living Platform)</span>
+        <span class="dh-leader">이재형 (CHRO 겸)</span>
+        <span class="dh-count">15명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <p class="detail-desc">변경 없음</p>
+        <ul class="dtree">
+          <li>
+            <div class="dt-div">Core Platform</div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">BE</span><span class="dt-name">김동현</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">BE</span><span class="dt-name">정운호</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">BE</span><span class="dt-name">양수현</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">FE</span><span class="dt-name">문주한</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">정진후</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">PD</span><span class="dt-name">문경덕</span></span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-div">Value Creation</div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">HoE</span><span class="dt-name">이태호</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">BTL</span><span class="dt-name">김민성</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">BE</span><span class="dt-name">류두영</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">App</span><span class="dt-name">이영희</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">App</span><span class="dt-name">구본한</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">HoP</span><span class="dt-name">김동욱</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">PD</span><span class="dt-name">정아라</span></span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-div">Ops Data</div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">유정재</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">QA</span><span class="dt-name">김보라</span></span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FN -->
+    <div class="detail-card" id="panel-fn">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">Group</span>
+        <span class="dh-name">FN (Finance)</span>
+        <span class="dh-leader">CFO 진홍재</span>
+        <span class="dh-count">6명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <p class="detail-desc">변경 없음</p>
+        <ul class="dtree">
+          <li>
+            <div class="dt-div">FN Mgt & Planning<span class="dt-sub">Director 김선미</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">김선미</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">송지나</span></span></li>
+              <li><span class="dt-person"><span class="dt-name">고수연</span></span></li>
+              <li><span class="dt-person"><span class="dt-name">박성진</span></span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-div">Financing</div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Lead</span><span class="dt-name">문영호</span></span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- People -->
+    <div class="detail-card" id="panel-people">
+      <div class="detail-head" onclick="toggleCard(this)">
+        <span class="dh-tag">Group</span>
+        <span class="dh-name">People</span>
+        <span class="dh-leader">CHRO 이재형</span>
+        <span class="dh-count">4명</span>
+        <span class="dh-toggle">▾</span>
+      </div>
+      <div class="detail-body">
+        <p class="detail-desc">변경 없음</p>
+        <ul class="dtree">
+          <li>
+            <div class="dt-div">People Planning</div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">이재이</span></span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-div">People Operations</div>
+            <ul class="dtree">
+              <li><span class="dt-person"><span class="dt-role">HRBP</span><span class="dt-name">이정범</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">HRDP</span><span class="dt-name">문희경</span></span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /detail-section -->
+</div><!-- /main -->
+
+<div class="footer">
+  <div class="footer-inner">
+    <div class="footer-left">MGRV · 2026 조직개편 To-Be 조직도 · Prepared by People Group · 2026. 03. 27</div>
+    <div class="footer-right">Strictly Confidential</div>
+  </div>
+</div>
+
+<script>
+function toggleCard(header) {
+  header.closest('.detail-card').classList.toggle('open');
+}
+
+function togglePanel(id, node) {
+  // Clear active from all org/staff nodes
+  document.querySelectorAll('.node-org, .node-staff').forEach(n => n.classList.remove('active'));
+  const panel = document.getElementById('panel-' + id);
+  const isOpen = panel.classList.contains('open');
+  if (!isOpen) {
+    node.classList.add('active');
+    panel.classList.add('open');
+    setTimeout(() => {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  } else {
+    panel.classList.remove('open');
+  }
+}
+
+function expandAll() {
+  document.querySelectorAll('.detail-card').forEach(c => c.classList.add('open'));
+}
+function collapseAll() {
+  document.querySelectorAll('.detail-card').forEach(c => c.classList.remove('open'));
+  document.querySelectorAll('.node-org, .node-staff').forEach(n => n.classList.remove('active'));
+}
+</script>
+
+</body>
+</html>
