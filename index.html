@@ -244,6 +244,14 @@ body {
 .node-staff.is-new {
   border: 2px dashed var(--g800);
 }
+.node-staff.no-panel {
+  cursor: default;
+  opacity: 0.55;
+}
+.node-staff.no-panel:hover {
+  border-color: var(--g200);
+  background: var(--white);
+}
 .node-staff .n-name {
   font-size: 11px;
   font-weight: 700;
@@ -467,6 +475,23 @@ body {
   letter-spacing: 0.3px;
 }
 
+/* Chapter/Matrix section label */
+.dt-section {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--g400);
+  padding: 8px 0 4px;
+  border-top: 1px solid var(--g200);
+  margin-top: 4px;
+}
+.dt-section:first-child {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
 /* Person */
 .dt-person {
   font-size: 12px;
@@ -564,7 +589,7 @@ body {
     <div class="header-content">
       <div class="header-eyebrow">Organization Chart</div>
       <div class="header-title">MGRV 2026 조직도 (To-Be)</div>
-      <div class="header-sub">시행일 2026. 03. 27 · 총 103명</div>
+      <div class="header-sub">시행일 2026. 04. 01 · 총 100명</div>
       <div class="header-badge">Strictly Confidential</div>
     </div>
     <div class="header-logo">
@@ -575,7 +600,7 @@ body {
 
 <div class="legend">
   <div class="legend-item"><span class="legend-new"></span> 신설 조직</div>
-  <div class="legend-item"><span class="legend-moved">⇄</span> 겸직</div>
+  <div class="legend-item"><span class="legend-moved">⇄</span> 부서 이동</div>
   <div style="margin-left:auto;display:flex;gap:4px;">
     <button class="btn-sm" onclick="expandAll()">모두 펼치기</button>
     <button class="btn-sm" onclick="collapseAll()">모두 접기</button>
@@ -598,20 +623,18 @@ body {
 
       <div class="tree-vline"></div>
 
-      <!-- Tier 2: CEO Staff / 직속 -->
+      <!-- Tier 2: CEO Staff -->
       <div class="tree-children">
         <div class="tree-child">
-          <div class="node-staff is-new" data-panel="growth" onclick="togglePanel('growth',this)">
-            <div class="n-name">Growth<span class="new-tag">NEW</span></div>
-            <div class="n-sub">CSO 이상호 겸임</div>
-            <div class="n-count">7명</div>
+          <div class="node-staff is-new" data-panel="dealacq" onclick="togglePanel('dealacq',this)">
+            <div class="n-name">Deal Acquisition<span class="new-tag">NEW</span></div>
+            <div class="n-sub">CSO 이상호</div>
+            <div class="n-count">6명</div>
           </div>
         </div>
         <div class="tree-child">
-          <div class="node-staff" data-panel="corpdev" onclick="togglePanel('corpdev',this)">
+          <div class="node-staff no-panel">
             <div class="n-name">Corp Dev</div>
-            <div class="n-sub">CSO 이상호</div>
-            <div class="n-count">4명</div>
           </div>
         </div>
         <div class="tree-child">
@@ -636,7 +659,7 @@ body {
           <div class="node-org" data-panel="red" onclick="togglePanel('red',this)">
             <div class="n-name">RED Group</div>
             <div class="n-sub">CRO 서세민</div>
-            <div class="n-count">11명</div>
+            <div class="n-count">10명</div>
           </div>
         </div>
         <div class="tree-child">
@@ -649,21 +672,21 @@ body {
         <div class="tree-child">
           <div class="node-org" data-panel="be" onclick="togglePanel('be',this)">
             <div class="n-name">BE Group</div>
-            <div class="n-sub">CEO 대행</div>
-            <div class="n-count">44명</div>
+            <div class="n-sub">CEO 조강태(대행)</div>
+            <div class="n-count">41명</div>
           </div>
         </div>
         <div class="tree-child">
           <div class="node-org" data-panel="lp" onclick="togglePanel('lp',this)">
             <div class="n-name">LP Group</div>
-            <div class="n-sub">이재형</div>
-            <div class="n-count">15명</div>
+            <div class="n-sub">CHRO 이재형(대행)</div>
+            <div class="n-count">14명</div>
           </div>
         </div>
         <div class="tree-child">
           <div class="node-org" data-panel="fn" onclick="togglePanel('fn',this)">
             <div class="n-name">FN Group</div>
-            <div class="n-sub">CFO 진홍재</div>
+            <div class="n-sub">CFO 진홍제</div>
             <div class="n-count">6명</div>
           </div>
         </div>
@@ -683,14 +706,14 @@ body {
        ═══════════════════════════════════════ -->
   <div class="detail-section">
 
-    <!-- ── CEO 직속 ── -->
-    <div class="section-divider">CEO 직속</div>
+    <!-- ── CEO Staff ── -->
+    <div class="section-divider">CEO Staff</div>
 
     <!-- Legal & Compliance -->
     <div class="detail-card" id="panel-legal">
       <div class="detail-head" onclick="toggleCard(this)">
         <span class="dh-tag">Staff</span>
-        <span class="dh-name">Legal & Compliance</span>
+        <span class="dh-name">Legal &amp; Compliance</span>
         <span class="dh-leader">Director 하규봉</span>
         <span class="dh-count">1명</span>
         <span class="dh-toggle">▾</span>
@@ -718,52 +741,31 @@ body {
       </div>
     </div>
 
-    <!-- Corp Dev -->
-    <div class="detail-card" id="panel-corpdev">
-      <div class="detail-head" onclick="toggleCard(this)">
-        <span class="dh-tag">CEO 직속</span>
-        <span class="dh-name">Corp Dev</span>
-        <span class="dh-leader">CSO 이상호</span>
-        <span class="dh-count">4명</span>
-        <span class="dh-toggle">▾</span>
-      </div>
-      <div class="detail-body">
-        <p class="detail-desc">조직 유지. 구성원은 Growth·PPM 등으로 겸직 배치하여 핵심 과업 지원</p>
-        <ul class="dtree">
-          <li><span class="dt-person"><span class="dt-role">CSO</span><span class="dt-name">이상호</span><span class="dt-note">Growth 부문 리더 겸임</span></span></li>
-          <li><span class="dt-person moved"><span class="dt-role">BO</span><span class="dt-name">최지훈</span><span class="dt-note">Growth 운영서비스DA 겸직</span></span></li>
-          <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">김경대</span><span class="dt-note">PPM 겸직</span></span></li>
-          <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">김서연</span><span class="dt-note">PPM 겸직</span></span></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Growth -->
-    <div class="detail-card is-new open" id="panel-growth">
+    <!-- Deal Acquisition -->
+    <div class="detail-card is-new open" id="panel-dealacq">
       <div class="detail-head" onclick="toggleCard(this)">
         <span class="dh-tag">CEO 직속 · NEW</span>
-        <span class="dh-name">Growth</span>
-        <span class="dh-leader">CSO 이상호 겸임 · CEO 공동리드</span>
-        <span class="dh-count">7명</span>
+        <span class="dh-name">Deal Acquisition 부문</span>
+        <span class="dh-leader">CSO 이상호</span>
+        <span class="dh-count">6명</span>
         <span class="dh-toggle">▾</span>
       </div>
       <div class="detail-body">
-        <p class="detail-desc">프로젝트성 겸직 조직. 각 구성원은 As-Is 소속을 유지하며 딜 발굴·성사를 전담</p>
+        <p class="detail-desc">JV Deal 및 운영서비스 딜의 Acquisition·Closing 전담 조직. CEO 직속으로 전사적 드라이브 담당</p>
         <ul class="dtree">
           <li>
-            <div class="dt-div">운영서비스 DA팀<span class="dt-sub">Leader 최지훈</span></div>
+            <div class="dt-div">Operation Service 팀<span class="dt-sub">팀리더 최지훈 BO</span></div>
             <ul class="dtree">
-              <li><span class="dt-person moved"><span class="dt-role">Leader</span><span class="dt-name">최지훈</span><span class="dt-note">겸직 · Corp Dev</span></span></li>
-              <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">함형범</span><span class="dt-note">겸직 · PPM BD</span></span></li>
-              <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">한슬기</span><span class="dt-note">겸직 · PPM BD</span></span></li>
+              <li><span class="dt-person moved"><span class="dt-role">Leader / BO</span><span class="dt-name">최지훈</span><span class="dt-note">←Corp Dev</span></span></li>
+              <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">함형범</span><span class="dt-note">←PPM</span></span></li>
             </ul>
           </li>
           <li>
-            <div class="dt-div">JV DA팀<span class="dt-sub">Leader 신정섭</span></div>
+            <div class="dt-div">Equity Investment 팀<span class="dt-sub">팀리더 신정섭</span></div>
             <ul class="dtree">
-              <li><span class="dt-person moved"><span class="dt-role">Leader</span><span class="dt-name">신정섭</span><span class="dt-note">겸직 · RED Finance2</span></span></li>
-              <li><span class="dt-person moved"><span class="dt-role">PM</span><span class="dt-name">남민규</span><span class="dt-note">겸직 · RED PM</span></span></li>
-              <li><span class="dt-person vacant">충원 예정</span></li>
+              <li><span class="dt-person moved"><span class="dt-role">Leader</span><span class="dt-name">신정섭</span><span class="dt-note">←RED</span></span></li>
+              <li><span class="dt-person moved"><span class="dt-role">Manager</span><span class="dt-name">이승훈</span><span class="dt-note">←RED</span></span></li>
+              <li><span class="dt-person moved"><span class="dt-role">Manager</span><span class="dt-name">남민규</span><span class="dt-note">←RED</span></span></li>
             </ul>
           </li>
         </ul>
@@ -779,17 +781,17 @@ body {
         <span class="dh-tag">Group</span>
         <span class="dh-name">RED</span>
         <span class="dh-leader">CRO 서세민</span>
-        <span class="dh-count">11명</span>
+        <span class="dh-count">10명</span>
         <span class="dh-toggle">▾</span>
       </div>
       <div class="detail-body">
+        <p class="detail-desc">Equity 투자기관에 대한 글로벌 대응역량 강화 초점</p>
         <ul class="dtree">
           <li>
             <div class="dt-div">IM (Investment Management)<span class="dt-sub">Director 이호탄</span></div>
             <ul class="dtree">
               <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">이호탄</span></span></li>
-              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">최성윤</span></span></li>
-              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">이승훈</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Team Leader</span><span class="dt-name">최성윤</span></span></li>
               <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">이동주</span></span></li>
               <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">김희주</span></span></li>
               <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">한세린</span></span></li>
@@ -813,38 +815,37 @@ body {
     <div class="detail-card" id="panel-bs">
       <div class="detail-head" onclick="toggleCard(this)">
         <span class="dh-tag">Group</span>
-        <span class="dh-name">BS (Brand & Space)</span>
+        <span class="dh-name">BS (Brand &amp; Space)</span>
         <span class="dh-leader">CDO 소희선</span>
         <span class="dh-count">12명</span>
         <span class="dh-toggle">▾</span>
       </div>
       <div class="detail-body">
-        <p class="detail-desc">변경 없음</p>
         <ul class="dtree">
           <li>
-            <div class="dt-div">Brand & Space Planning<span class="dt-sub">Leader 이다정</span></div>
+            <div class="dt-div">Brand &amp; Space Planning<span class="dt-sub">Leader 이다정</span></div>
             <ul class="dtree">
               <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">이다정</span></span></li>
-              <li><span class="dt-person"><span class="dt-name">정보근</span></span></li>
-              <li><span class="dt-person"><span class="dt-name">최남연</span></span></li>
-              <li><span class="dt-person"><span class="dt-name">오세영</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Brand Planner</span><span class="dt-name">정보근</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Brand Planner</span><span class="dt-name">최남연</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Brand Planner</span><span class="dt-name">오세영</span></span></li>
             </ul>
           </li>
           <li>
             <div class="dt-div">Brand Design<span class="dt-sub">Leader 이현아</span></div>
             <ul class="dtree">
               <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">이현아</span></span></li>
-              <li><span class="dt-person"><span class="dt-name">김규연</span></span></li>
-              <li><span class="dt-person"><span class="dt-name">최예지</span></span></li>
-              <li><span class="dt-person"><span class="dt-name">전신영</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Brand Designer</span><span class="dt-name">김구연</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Brand Designer</span><span class="dt-name">최예지</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Brand Designer</span><span class="dt-name">전선영</span></span></li>
             </ul>
           </li>
           <li>
-            <div class="dt-div">Space Design</div>
+            <div class="dt-div">Space Design<span class="dt-sub">Leader 이의정</span></div>
             <ul class="dtree">
-              <li><span class="dt-person"><span class="dt-name">이의정</span></span></li>
-              <li><span class="dt-person"><span class="dt-name">송민주</span></span></li>
-              <li><span class="dt-person vacant">박세영 (예정)</span></li>
+              <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">이의정</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Space Designer</span><span class="dt-name">송민주</span></span></li>
+              <li><span class="dt-person vacant"><span class="dt-role">Space Designer</span> 박세영 (예정)</span></li>
             </ul>
           </li>
         </ul>
@@ -856,89 +857,81 @@ body {
       <div class="detail-head" onclick="toggleCard(this)">
         <span class="dh-tag">Group</span>
         <span class="dh-name">BE (Business Experience)</span>
-        <span class="dh-leader">CEO 그룹리더 대행</span>
-        <span class="dh-count">44명</span>
+        <span class="dh-leader">CEO 조강태(대행)</span>
+        <span class="dh-count">41명</span>
         <span class="dh-toggle">▾</span>
       </div>
       <div class="detail-body">
         <ul class="dtree">
+
           <!-- PPM -->
           <li>
             <div class="dt-div">PPM<span class="dt-sub">Director 홍승표</span></div>
             <ul class="dtree">
               <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">홍승표</span></span></li>
               <li>
-                <div class="dt-team">Product Planning</div>
+                <div class="dt-team">Performance Planning Cell<span style="font-size:10px;color:var(--g400);margin-left:6px;">셀리더 김경대</span></div>
                 <ul class="dtree">
+                  <li><span class="dt-person moved"><span class="dt-role">셀리더 / BM</span><span class="dt-name">김경대</span><span class="dt-note">←Corp Dev</span></span></li>
                   <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">김승연</span></span></li>
                 </ul>
               </li>
               <li>
-                <div class="dt-team">Scale</div>
+                <div class="dt-team">Operation Innovation Cell<span style="font-size:10px;color:var(--g400);margin-left:6px;">셀리더 홍승표(Dir. 겸)</span></div>
                 <ul class="dtree">
-                  <li><span class="dt-person"><span class="dt-role">BO</span><span class="dt-name">홍기문</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">BM</span><span class="dt-name">김은혜</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">BM</span><span class="dt-name">한슬기</span></span></li>
+                  <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">김서연</span><span class="dt-note">←Corp Dev</span></span></li>
+                </ul>
+              </li>
+              <li>
+                <div class="dt-team">Scale Cell<span style="font-size:10px;color:var(--g400);margin-left:6px;">셀리더 신규채용 예정</span></div>
+                <ul class="dtree">
+                  <li><span class="dt-person vacant">셀리더 — 신규채용 예정</span></li>
                   <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">김주현</span></span></li>
                 </ul>
               </li>
-              <li>
-                <div class="dt-team">Operational Improvement</div>
-                <ul class="dtree">
-                  <li><span class="dt-person"><span class="dt-role">BM</span><span class="dt-name">김은혜</span></span></li>
-                </ul>
-              </li>
-              <li>
-                <div class="dt-team">겸직 배치</div>
-                <ul class="dtree">
-                  <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">김경대</span><span class="dt-note">겸직 · Corp Dev</span></span></li>
-                  <li><span class="dt-person moved"><span class="dt-role">BM</span><span class="dt-name">김서연</span><span class="dt-note">겸직 · Corp Dev</span></span></li>
-                </ul>
-              </li>
             </ul>
           </li>
+
           <!-- Marketing & Sales -->
           <li>
-            <div class="dt-div">Marketing & Sales<span class="dt-sub">Director 곽승재</span></div>
+            <div class="dt-div">Marketing &amp; Sales<span class="dt-sub">Director 곽승재</span></div>
             <ul class="dtree">
               <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">곽승재</span></span></li>
               <li>
-                <div class="dt-team">Growth & Contents Team (곽승재 디렉터 직접 리드)</div>
+                <div class="dt-team">Growth &amp; Contents Team (곽승재 디렉터 겸)</div>
                 <ul class="dtree">
-                  <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">정원석</span></span></li>
-                  <li><span class="dt-person"><span class="dt-name">구은진</span></span></li>
-                  <li><span class="dt-person"><span class="dt-name">지연주</span></span></li>
-                  <li><span class="dt-person"><span class="dt-name">장현희</span></span></li>
-                  <li><span class="dt-person"><span class="dt-name">김효승</span></span></li>
-                  <li><span class="dt-person"><span class="dt-role">Sales Ops</span><span class="dt-name">최승은</span><span class="dt-note">(계약직)</span></span></li>
-                  <li><span class="dt-person moved"><span class="dt-role">Leader</span><span class="dt-name">이성국</span><span class="dt-note">←캠페인마케팅</span></span></li>
-                  <li><span class="dt-person moved"><span class="dt-role">Marketer</span><span class="dt-name">박준하</span><span class="dt-note">←캠페인마케팅</span></span></li>
+                  <li><span class="dt-person moved"><span class="dt-role">마케팅 매니저</span><span class="dt-name">이성국</span><span class="dt-note">←Campaign</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">마케팅 매니저</span><span class="dt-name">정원석</span></span></li>
+                  <li><span class="dt-person moved"><span class="dt-role">마케팅 매니저</span><span class="dt-name">박준하</span><span class="dt-note">←Campaign</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">마케팅 매니저</span><span class="dt-name">구은진</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">세일즈 매니저</span><span class="dt-name">정현희</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">세일즈 매니저</span><span class="dt-name">지연주</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">세일즈 매니저</span><span class="dt-name">김효승</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">Sales Operator</span><span class="dt-name">최승은</span></span></li>
                 </ul>
               </li>
               <li>
-                <div class="dt-team">Community & Campaign Team (김인애 팀리더)</div>
+                <div class="dt-team">Community &amp; Campaign Team (김인애 팀리더)</div>
                 <ul class="dtree">
                   <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">김인애</span></span></li>
+                  <li><span class="dt-person"><span class="dt-name">황인경</span></span></li>
                   <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">이정민</span></span></li>
-                  <li><span class="dt-person vacant">시니어 충원 예정</span></li>
-                </ul>
-              </li>
-              <li>
-                <div class="dt-team">미배치 / 휴직</div>
-                <ul class="dtree">
-                  <li><span class="dt-person vacant">황인경 (미배치 확인 필요)</span></li>
-                  <li><span class="dt-person vacant">주연수 (휴직)</span></li>
                 </ul>
               </li>
             </ul>
           </li>
+
           <!-- OPS -->
           <li>
             <div class="dt-div">OPS (Operations)<span class="dt-sub">정상훈 디렉터 대행</span></div>
             <ul class="dtree">
-              <li><span class="dt-person promoted"><span class="dt-role">디렉터 대행</span><span class="dt-name">정상훈</span><span class="dt-note">승격</span></span></li>
+              <li><span class="dt-person promoted"><span class="dt-role">디렉터 대행</span><span class="dt-name">정상훈</span></span></li>
               <li>
                 <div class="dt-team">Field Owner</div>
                 <ul class="dtree">
-                  <li><span class="dt-person"><span class="dt-role">FO</span><span class="dt-name">정해선</span><span class="dt-note">W&S 제주/고성</span></span></li>
+                  <li><span class="dt-person"><span class="dt-role">FO</span><span class="dt-name">정해선</span><span class="dt-note">W&amp;S 제주/고성</span></span></li>
                   <li><span class="dt-person"><span class="dt-role">FO</span><span class="dt-name">박일우</span><span class="dt-note">어반디힐/라퓨타</span></span></li>
                   <li><span class="dt-person"><span class="dt-role">FO</span><span class="dt-name">추재현</span><span class="dt-note">신설/동대문</span></span></li>
                   <li><span class="dt-person"><span class="dt-role">FO</span><span class="dt-name">김주향</span><span class="dt-note">신촌/숭인</span></span></li>
@@ -968,9 +961,8 @@ body {
                 </ul>
               </li>
               <li>
-                <div class="dt-team">Community Management — Work & Stay</div>
+                <div class="dt-team">Community Management — Work &amp; Stay</div>
                 <ul class="dtree">
-                  <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">추재현</span><span class="dt-note">(고성)</span></span></li>
                   <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">안예지</span><span class="dt-note">(고성)</span></span></li>
                   <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">김강미</span><span class="dt-note">(제주)</span></span></li>
                   <li><span class="dt-person"><span class="dt-role">CA</span><span class="dt-name">고유라</span><span class="dt-note">(제주)</span></span></li>
@@ -992,7 +984,7 @@ body {
                 </ul>
               </li>
               <li>
-                <div class="dt-team">MGRV Vibe | F&B Mgt</div>
+                <div class="dt-team">MGRV Vibe | F&amp;B Mgt</div>
                 <ul class="dtree">
                   <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">최연문</span></span></li>
                   <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">안지선</span></span></li>
@@ -1000,14 +992,16 @@ body {
               </li>
             </ul>
           </li>
+
           <!-- Procurement -->
           <li>
-            <div class="dt-div">Procurement & Vendor Management<span class="dt-sub">BE 그룹리더 직속</span></div>
+            <div class="dt-div">Procurement &amp; Vendor Management<span class="dt-sub">BE 그룹리더 직속</span></div>
             <ul class="dtree">
-              <li><span class="dt-person"><span class="dt-role">Leader</span><span class="dt-name">정광채</span></span></li>
-              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">최재원</span></span></li>
+              <li><span class="dt-person moved"><span class="dt-role">Leader</span><span class="dt-name">정광채</span><span class="dt-note">←PRP</span></span></li>
+              <li><span class="dt-person moved"><span class="dt-role">Manager</span><span class="dt-name">최재원</span><span class="dt-note">←PRP</span></span></li>
             </ul>
           </li>
+
         </ul>
       </div>
     </div>
@@ -1017,40 +1011,64 @@ body {
       <div class="detail-head" onclick="toggleCard(this)">
         <span class="dh-tag">Group</span>
         <span class="dh-name">LP (Living Platform)</span>
-        <span class="dh-leader">이재형 (CHRO 겸)</span>
-        <span class="dh-count">15명</span>
+        <span class="dh-leader">CHRO 이재형(대행)</span>
+        <span class="dh-count">14명</span>
         <span class="dh-toggle">▾</span>
       </div>
       <div class="detail-body">
-        <p class="detail-desc">변경 없음</p>
+        <p class="detail-desc">챕터-스쿼드 매트릭스 조직</p>
+
+        <!-- Chapters -->
+        <div class="dt-section">챕터 구조</div>
+        <ul class="dtree" style="margin-bottom:16px;">
+          <li>
+            <div class="dt-team">PM 챕터<span style="font-size:10px;color:var(--g400);margin-left:6px;">Head of Product 김동욱 Director</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person" style="color:var(--g500);font-size:11px;">PD · QA 소속</span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-team">Engineering 챕터<span style="font-size:10px;color:var(--g400);margin-left:6px;">Head of Engineering 이태훈 Director</span></div>
+            <ul class="dtree">
+              <li><span class="dt-person" style="color:var(--g500);font-size:11px;">BE · FE · App 소속</span></li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Squads -->
+        <div class="dt-section">스쿼드 편제</div>
         <ul class="dtree">
           <li>
             <div class="dt-div">Core Platform</div>
             <ul class="dtree">
-              <li><span class="dt-person"><span class="dt-role">BE</span><span class="dt-name">김동현</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">정진후</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Tech Lead</span><span class="dt-name">김동현</span></span></li>
               <li><span class="dt-person"><span class="dt-role">BE</span><span class="dt-name">정운호</span></span></li>
               <li><span class="dt-person"><span class="dt-role">BE</span><span class="dt-name">양수현</span></span></li>
               <li><span class="dt-person"><span class="dt-role">FE</span><span class="dt-name">문주한</span></span></li>
-              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">정진후</span></span></li>
               <li><span class="dt-person"><span class="dt-role">PD</span><span class="dt-name">문경덕</span></span></li>
             </ul>
           </li>
           <li>
             <div class="dt-div">Value Creation</div>
             <ul class="dtree">
-              <li><span class="dt-person"><span class="dt-role">HoE</span><span class="dt-name">이태호</span></span></li>
-              <li><span class="dt-person"><span class="dt-role">BTL</span><span class="dt-name">김민성</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">HoP</span><span class="dt-name">김동욱</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">HoE</span><span class="dt-name">이태훈</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Tech Lead</span><span class="dt-name">김민성</span></span></li>
               <li><span class="dt-person"><span class="dt-role">BE</span><span class="dt-name">류두영</span></span></li>
               <li><span class="dt-person"><span class="dt-role">App</span><span class="dt-name">이영희</span></span></li>
               <li><span class="dt-person"><span class="dt-role">App</span><span class="dt-name">구본한</span></span></li>
-              <li><span class="dt-person"><span class="dt-role">HoP</span><span class="dt-name">김동욱</span></span></li>
-              <li><span class="dt-person"><span class="dt-role">PD</span><span class="dt-name">정아라</span></span></li>
             </ul>
           </li>
           <li>
             <div class="dt-div">Ops Data</div>
             <ul class="dtree">
-              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">유정재</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">PM</span><span class="dt-name">유정제</span></span></li>
+            </ul>
+          </li>
+          <li>
+            <div class="dt-div">QA</div>
+            <ul class="dtree">
               <li><span class="dt-person"><span class="dt-role">QA</span><span class="dt-name">김보라</span></span></li>
             </ul>
           </li>
@@ -1063,7 +1081,7 @@ body {
       <div class="detail-head" onclick="toggleCard(this)">
         <span class="dh-tag">Group</span>
         <span class="dh-name">FN (Finance)</span>
-        <span class="dh-leader">CFO 진홍재</span>
+        <span class="dh-leader">CFO 진홍제</span>
         <span class="dh-count">6명</span>
         <span class="dh-toggle">▾</span>
       </div>
@@ -1071,12 +1089,12 @@ body {
         <p class="detail-desc">변경 없음</p>
         <ul class="dtree">
           <li>
-            <div class="dt-div">FN Mgt & Planning<span class="dt-sub">Director 김선미</span></div>
+            <div class="dt-div">FN Mgt &amp; Planning<span class="dt-sub">Director 김선미</span></div>
             <ul class="dtree">
               <li><span class="dt-person"><span class="dt-role">Director</span><span class="dt-name">김선미</span></span></li>
               <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">송지나</span></span></li>
-              <li><span class="dt-person"><span class="dt-name">고수연</span></span></li>
-              <li><span class="dt-person"><span class="dt-name">박성진</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">고수연</span></span></li>
+              <li><span class="dt-person"><span class="dt-role">Manager</span><span class="dt-name">박성진</span></span></li>
             </ul>
           </li>
           <li>
@@ -1123,7 +1141,7 @@ body {
 
 <div class="footer">
   <div class="footer-inner">
-    <div class="footer-left">MGRV · 2026 조직개편 To-Be 조직도 · Prepared by People Group · 2026. 03. 27</div>
+    <div class="footer-left">MGRV · 2026 조직개편 To-Be 조직도 · Prepared by People Group · 2026. 04. 01</div>
     <div class="footer-right">Strictly Confidential</div>
   </div>
 </div>
@@ -1137,6 +1155,7 @@ function togglePanel(id, node) {
   // Clear active from all org/staff nodes
   document.querySelectorAll('.node-org, .node-staff').forEach(n => n.classList.remove('active'));
   const panel = document.getElementById('panel-' + id);
+  if (!panel) return;
   const isOpen = panel.classList.contains('open');
   if (!isOpen) {
     node.classList.add('active');
